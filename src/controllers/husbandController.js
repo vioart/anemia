@@ -9,7 +9,7 @@ const husbandController = {
                 kode_istri,
             } = request.payload;
     
-            if (!ibu_hamil_id) {
+            if (!user_id) {
             const response = h.response({
                 status: 'fail',
                 message: 'Failed to add husband data. Please provide the husband data id.',

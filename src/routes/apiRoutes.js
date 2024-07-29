@@ -2,6 +2,7 @@ const Joi = require('joi');
 const authController = require('../controllers/authController');
 const dataController = require('../controllers/dataController');
 const husbandController = require('../controllers/husbandController');
+const healthCenterController = require('../controllers/healthCenterController');
 
 
 const apiRoutes = [
@@ -540,7 +541,8 @@ const apiRoutes = [
           },
           validate: {
             payload: Joi.object({
-              id: Joi.string().allow('').label('id'),
+              user_id: Joi.string().allow('').label('user_id'),
+              kode_istri: Joi.string().allow('').label('kode_istri'),
             }),
             failAction: async (request, h, err) => {
               throw err;
@@ -560,6 +562,146 @@ const apiRoutes = [
           },
       },
       handler: husbandController.deleteHusband,
+    },
+
+    // Data Puskesmas Officer
+    {
+        method: 'GET',
+        path: '/puskesmas-officer',
+        handler: healthCenterController.getAllOfficer,
+    },
+    {
+        method: 'GET',
+        path: '/puskesmas-officer/{id}',
+        options: {
+            validate: {
+              params: Joi.object({
+                id: Joi.string().required(),
+              }),
+            },
+        },
+        handler: healthCenterController.getOfficer,
+    },
+    {
+        method: 'POST',
+        path: '/puskesmas-officer',
+        options: {
+            payload: {
+              multipart: true,
+            },
+            validate: {
+              payload: Joi.object({
+                  user_id: Joi.string().allow('').label('user_id'),
+                  puskesmas_id: Joi.string().allow('').label('puskesmas_id'),
+                  nama: Joi.string().allow('').label('nama'),
+              }),
+              failAction: async (request, h, err) => {
+                throw err;
+              },
+            },
+        },
+        handler: healthCenterController.createOfficer,
+    },
+    {
+      method: 'PUT',
+      path: '/puskesmas-officer/{id}',
+      options: {
+          payload: {
+            multipart: true,
+          },
+          validate: {
+            payload: Joi.object({
+              user_id: Joi.string().allow('').label('user_id'),
+              puskesmas_id: Joi.string().allow('').label('puskesmas_id'),
+              nama: Joi.string().allow('').label('nama'),
+            }),
+            failAction: async (request, h, err) => {
+              throw err;
+            },
+          },
+      },
+      handler: healthCenterController.updateOfficer,
+    },
+    {
+      method: 'DELETE',
+      path: '/puskesmas-officer/{id}',
+      options: {
+          validate: {
+            params: Joi.object({
+              id: Joi.string().required(),
+            }),
+          },
+      },
+      handler: healthCenterController.deleteOfficer,
+    },
+
+    // Data Puskesmas 
+    {
+        method: 'GET',
+        path: '/puskesmas',
+        handler: healthCenterController.getAllPuskesmas,
+    },
+    {
+        method: 'GET',
+        path: '/puskesmas/{id}',
+        options: {
+            validate: {
+              params: Joi.object({
+                id: Joi.string().required(),
+              }),
+            },
+        },
+        handler: healthCenterController.getPuskesmas,
+    },
+    {
+        method: 'POST',
+        path: '/puskesmas',
+        options: {
+            payload: {
+              multipart: true,
+            },
+            validate: {
+              payload: Joi.object({
+                nama: Joi.string().allow('').label('nama'),
+                kecamatan: Joi.string().allow('').label('kecamatan')
+              }),
+              failAction: async (request, h, err) => {
+                throw err;
+              },
+            },
+        },
+        handler: healthCenterController.createPuskesmas,
+    },
+    {
+      method: 'PUT',
+      path: '/puskesmas/{id}',
+      options: {
+          payload: {
+            multipart: true,
+          },
+          validate: {
+            payload: Joi.object({
+              nama: Joi.string().allow('').label('nama'),
+              kecamatan: Joi.string().allow('').label('kecamatan')
+            }),
+            failAction: async (request, h, err) => {
+              throw err;
+            },
+          },
+      },
+      handler: healthCenterController.updatePuskesmas,
+    },
+    {
+      method: 'DELETE',
+      path: '/puskesmas/{id}',
+      options: {
+          validate: {
+            params: Joi.object({
+              id: Joi.string().required(),
+            }),
+          },
+      },
+      handler: healthCenterController.deletePuskesmas,
     },
 ];
 

@@ -26,7 +26,6 @@ const dataController = {
             return response;
             }
 
-            // Buat objek newItem yang berisi data ibu hamil
             const newItem = {
                 user_id,
                 nama,
@@ -44,11 +43,9 @@ const dataController = {
             };
 
             try {
-                // Simpan data ke Firestore
-                const docRef = db.collection('Pregnant_Mother').doc(); // Buat dokumen baru dengan ID otomatis
+                const docRef = db.collection('Pregnant_Mother').doc();
                 await docRef.set(newItem);
                 
-                // Format respons sesuai permintaan
                 const responsePayload = {
                     status: 'success',
                     data: {
@@ -72,7 +69,6 @@ const dataController = {
         try {
             const { id } = request.params;
 
-            // Ambil data dari Firestore berdasarkan ID
             const docRef = db.collection('Pregnant_Mother').doc(id);
             const doc = await docRef.get();
 
@@ -127,7 +123,6 @@ const dataController = {
                 kode_istri,
             } = request.payload;
 
-            // Buat objek updatedItem yang berisi data yang diperbarui
             const updatedItem = {
                 user_id,
                 nama,
@@ -143,7 +138,6 @@ const dataController = {
                 updated_at: new Date().toISOString()
             };
 
-            // Hapus properti yang tidak diberikan dalam payload
             Object.keys(updatedItem).forEach(key => {
                 if (updatedItem[key] === undefined) {
                     delete updatedItem[key];
@@ -151,11 +145,9 @@ const dataController = {
             });
 
             try {
-                // Perbarui data di Firestore
                 const docRef = db.collection('Pregnant_Mother').doc(id);
                 await docRef.update(updatedItem);
 
-                // Ambil dokumen yang diperbarui untuk respons
                 const updatedDoc = await docRef.get();
 
                 if (!updatedDoc.exists) {
@@ -185,7 +177,6 @@ const dataController = {
         try {
             const { id } = request.params;
 
-            // Hapus dokumen dari Firestore berdasarkan ID
             const docRef = db.collection('Pregnant_Mother').doc(id);
             const doc = await docRef.get();
 
@@ -225,7 +216,6 @@ const dataController = {
             return response;
             }
 
-            // Buat objek newItem yang berisi data ibu hamil
             const newItem = {
                 ibu_hamil_id,
                 usia_kehamilan,
@@ -240,11 +230,9 @@ const dataController = {
             };
 
             try {
-                // Simpan data ke Firestore
-                const docRef = db.collection('Anemia_Risk_Calculator').doc(); // Buat dokumen baru dengan ID otomatis
+                const docRef = db.collection('Anemia_Risk_Calculator').doc();
                 await docRef.set(newItem);
                 
-                // Format respons sesuai permintaan
                 const responsePayload = {
                     status: 'success',
                     data: {
@@ -319,7 +307,6 @@ const dataController = {
                 tanggal_perhitungan
             } = request.payload;
 
-            // Buat objek updatedItem yang berisi data yang diperbarui
             const updatedItem = {
                 ibu_hamil_id,
                 usia_kehamilan,
@@ -444,11 +431,9 @@ const dataController = {
             };
 
             try {
-                // Simpan data ke Firestore
-                const docRef = db.collection('Eating_Journal').doc(); // Buat dokumen baru dengan ID otomatis
+                const docRef = db.collection('Eating_Journal').doc();
                 await docRef.set(newItem);
                 
-                // Format respons sesuai permintaan
                 const responsePayload = {
                     status: 'success',
                     data: {
@@ -533,7 +518,6 @@ const dataController = {
                 total_nilai_gizi,
             } = request.payload;
 
-            // Buat objek updatedItem yang berisi data yang diperbarui
             const updatedItem = {
                 ibu_hamil_id,
                 tanggal,
@@ -713,7 +697,6 @@ const dataController = {
                 frekuensi,
             } = request.payload;
 
-            // Buat objek updatedItem yang berisi data yang diperbarui
             const updatedItem = {
                 ibu_hamil_id,
                 waktu_pagi,

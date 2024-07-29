@@ -114,7 +114,7 @@ const healthCenterController = {
             });
 
             try {
-                const docRef = db.collection('Puskermas_Officer').doc(id);
+                const docRef = db.collection('Puskesmas_Officer').doc(id);
                 await docRef.update(updatedItem);
 
                 const updatedDoc = await docRef.get();
@@ -271,7 +271,7 @@ const healthCenterController = {
             });
 
             try {
-                const docRef = db.collection('Puskermas').doc(id);
+                const docRef = db.collection('Puskesmas').doc(id);
                 await docRef.update(updatedItem);
 
                 const updatedDoc = await docRef.get();
