@@ -1,6 +1,8 @@
 const Joi = require('joi');
 const authController = require('../controllers/authController');
 const dataController = require('../controllers/dataController');
+const husbandController = require('../controllers/husbandController');
+
 
 const apiRoutes = [
     // Information API
@@ -417,6 +419,147 @@ const apiRoutes = [
           },
       },
       handler: dataController.deleteReminderTtd,
+    },
+
+    // Consumption TTD
+    {
+        method: 'GET',
+        path: '/consumption-ttd',
+        handler: dataController.getAllConsumptionTtd,
+    },
+    {
+        method: 'GET',
+        path: '/consumption-ttd/{id}',
+        options: {
+            validate: {
+              params: Joi.object({
+                id: Joi.string().required(),
+              }),
+            },
+        },
+        handler: dataController.getConsumptionTtd,
+    },
+    {
+        method: 'POST',
+        path: '/consumption-ttd',
+        options: {
+            payload: {
+              multipart: true,
+            },
+            validate: {
+              payload: Joi.object({
+                ibu_hamil_id: Joi.string().allow('').label('ibu_hamil_id'),
+                tanggal: Joi.string().allow('').label('tanggal'),
+                waktu: Joi.string().allow('').label('waktu'),
+                status: Joi.string().allow('').label('status'),
+              }),
+              failAction: async (request, h, err) => {
+                throw err;
+              },
+            },
+        },
+        handler: dataController.createConsumptionTtd,
+    },
+    {
+      method: 'PUT',
+      path: '/consumption-ttd/{id}',
+      options: {
+          payload: {
+            multipart: true,
+          },
+          validate: {
+            payload: Joi.object({
+              ibu_hamil_id: Joi.string().allow('').label('ibu_hamil_id'),
+              tanggal: Joi.string().allow('').label('tanggal'),
+              waktu: Joi.string().allow('').label('waktu'),
+              status: Joi.string().allow('').label('status'),
+            }),
+            failAction: async (request, h, err) => {
+              throw err;
+            },
+          },
+      },
+      handler: dataController.updateConsumptionTtd,
+    },
+    {
+      method: 'DELETE',
+      path: '/consumption-ttd/{id}',
+      options: {
+          validate: {
+            params: Joi.object({
+              id: Joi.string().required(),
+            }),
+          },
+      },
+      handler: dataController.deleteConsumptionTtd,
+    },
+
+    // Data Husband
+    {
+        method: 'GET',
+        path: '/husband',
+        handler: husbandController.getAllHusband,
+    },
+    {
+        method: 'GET',
+        path: '/husband/{id}',
+        options: {
+            validate: {
+              params: Joi.object({
+                id: Joi.string().required(),
+              }),
+            },
+        },
+        handler: husbandController.getHusband,
+    },
+    {
+        method: 'POST',
+        path: '/husband',
+        options: {
+            payload: {
+              multipart: true,
+            },
+            validate: {
+              payload: Joi.object({
+                user_id: Joi.string().allow('').label('user_id'),
+                kode_istri: Joi.string().allow('').label('kode_istri'),
+              }),
+              failAction: async (request, h, err) => {
+                throw err;
+              },
+            },
+        },
+        handler: husbandController.createHusband,
+    },
+    {
+      method: 'PUT',
+      path: '/husband/{id}',
+      options: {
+          payload: {
+            multipart: true,
+          },
+          validate: {
+            payload: Joi.object({
+              id: Joi.string().allow('').label('id'),
+            }),
+            failAction: async (request, h, err) => {
+              throw err;
+            },
+          },
+      },
+      handler: husbandController.updateHusband,
+    },
+    {
+      method: 'DELETE',
+      path: '/husband/{id}',
+      options: {
+          validate: {
+            params: Joi.object({
+              id: Joi.string().required(),
+            }),
+          },
+      },
+      handler: husbandController.deleteHusband,
     },
 ];
 
